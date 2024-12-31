@@ -4,6 +4,6 @@ import FunnelAnalysis from './FunnelAnalysis'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <FunnelAnalysis />
+    <FunnelAnalysis/>
   </React.StrictMode>,
 )
