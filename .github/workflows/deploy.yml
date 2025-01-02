@@ -5,9 +5,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Dies ist wichtig für Push-Zugriff
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # Authentifizierung
       
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -22,8 +26,10 @@ jobs:
         
       - name: Commit and Push Changes
         run: |
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add docs
           git commit -m "Update build" || echo "No changes to commit"
-          git push
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Token für Push
