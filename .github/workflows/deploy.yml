@@ -3,21 +3,27 @@ on:
   push:
     branches: [ main ]
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+      
       - name: Install Dependencies
         run: npm install
+      
       - name: Build
         run: npm run build
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: docs  # Geändert von dist zu docs
-          branch: gh-pages
+        
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+          git add docs
+          git commit -m "Update build" || echo "No changes to commit"
+          git push
