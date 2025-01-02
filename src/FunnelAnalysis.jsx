@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 const FunnelAnalysis = () => {
+  console.log("FunnelAnalysis component is rendering!");
   const [funnelData, setFunnelData] = useState([
     {
       stage: 'Page Views',
